@@ -7,15 +7,29 @@ const movieSelect = document.getElementById('movie');
 let ticketPrice = +movieSelect.value;
 
 
+//Save selected movie index & price
+function setMoviedata(movieIndex, moviePrice) {
+    localStorage.setItem('selectedMovieIndex', movieIndex);
+    localStorage.setItem('selectedMoviePrice', moviePrice);
+}
+
+
 // Movie select event
 movieSelect.addEventListener('change', e => {
-    ticketPrice = +e.target.value
+    ticketPrice = +e.target.value;
+    setMoviedata(e.target.selectedIndex, e.target.value);
+    
     updateSelectedCount;
 })
 
 // update total and count
 function updateSelectedCount() {
     const selectedSeats = document.querySelectorAll('.row .seat.selected');
+
+    const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+    localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+    
 
     const selectedSeatsCount = selectedSeats.length;
 
